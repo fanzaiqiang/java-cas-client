@@ -25,7 +25,6 @@ import java.util.Map;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.jasig.cas.client.Protocol;
 import org.jasig.cas.client.configuration.ConfigurationKeys;
@@ -33,6 +32,8 @@ import org.jasig.cas.client.util.AbstractCasFilter;
 import org.jasig.cas.client.util.CommonUtils;
 import org.jasig.cas.client.util.ReflectUtils;
 import org.jasig.cas.client.validation.Assertion;
+
+import com.webinfo.security.ClientSessionManager;
 
 /**
  * Filter implementation to intercept all requests and attempt to authenticate
@@ -148,8 +149,10 @@ public class AuthenticationFilter extends AbstractCasFilter {
             return;
         }
         
-        final HttpSession session = request.getSession(false);
-        final Assertion assertion = session != null ? (Assertion) session.getAttribute(CONST_CAS_ASSERTION) : null;
+        //session to cookie by Fan
+        //final HttpSession session = request.getSession(false);
+        //final Assertion assertion = session != null ? (Assertion) session.getAttribute(CONST_CAS_ASSERTION) : null;       
+		final Assertion assertion = ClientSessionManager.handle(request, response);
 
         if (assertion != null) {
             filterChain.doFilter(request, response);

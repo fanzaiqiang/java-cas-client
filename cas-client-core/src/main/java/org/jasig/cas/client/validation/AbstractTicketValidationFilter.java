@@ -32,6 +32,8 @@ import org.jasig.cas.client.util.AbstractCasFilter;
 import org.jasig.cas.client.util.CommonUtils;
 import org.jasig.cas.client.util.ReflectUtils;
 
+import com.webinfo.security.ClientSessionManager;
+
 /**
  * The filter that handles all the work of validating ticket requests.
  * <p>
@@ -209,7 +211,9 @@ public abstract class AbstractTicketValidationFilter extends AbstractCasFilter {
                 request.setAttribute(CONST_CAS_ASSERTION, assertion);
 
                 if (this.useSession) {
-                    request.getSession().setAttribute(CONST_CAS_ASSERTION, assertion);
+                    //request.getSession().setAttribute(CONST_CAS_ASSERTION, assertion);
+                	//session to cookie by Fan
+                    ClientSessionManager.persistAssertion(response, assertion);
                 }
                 onSuccessfulValidation(request, response, assertion);
 
