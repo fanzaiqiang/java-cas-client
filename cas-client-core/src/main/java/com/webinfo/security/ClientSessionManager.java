@@ -14,12 +14,14 @@ import com.webinfo.security.util.ObjectToString;
 
 public class ClientSessionManager {
 
+	protected final static Logger logger = LoggerFactory.getLogger(ClientSessionManager.class);
+
 	public final static String CLIENT_SESSION_ID = "_C_S_";
 	private final static long CLIENT_SESSION_TIMEOUT_IN_MS = 600000;
 	private final static long CLIENT_SESSION_REFRESH_INTERNAL_IN_MS = 60000;
-	private final static boolean ENABLE_TRACE = true;
 
 	public final static Assertion handle(HttpServletRequest request, HttpServletResponse response) {
+
 		ClientSessionBean csession = fetchValidClientSession(request);
 		if (csession == null) {
 			trace("assertion is null");
@@ -138,8 +140,6 @@ public class ClientSessionManager {
 	}
 
 	private static void trace(String out) {
-		if (ENABLE_TRACE) {
-			System.out.println("[CLIENT_SESSION] " + out);
-		}
+		logger.debug(out);
 	}
 }
