@@ -35,7 +35,7 @@
     <!-- for the cas logout url -->  
     <context-param>  
         <param-name>casServerLogoutUrl</param-name>  
-        <param-value>https://cas.webinfo.com:8443/cas/logout</param-value>  
+        <param-value>https://cas.webinfo.com:8443/cas/logout</param-value>
     </context-param>  
     <context-param>
         <param-name>casServerUrlPrefix</param-name>
@@ -80,18 +80,7 @@
         <filter-name>CAS Validation Filter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-    <!--Wraps an HttpServletRequest so that the getRemoteUser and getPrincipal return the CAS related entries.-->
-    <filter>
-      <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
-      <filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
-    </filter>
-    <filter-mapping>
-      <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
-      <url-pattern>/*</url-pattern>
-    </filter-mapping>
     <!-- CAS SSO END -->
-
 
     <!-- Define example filters -->
     <filter>
